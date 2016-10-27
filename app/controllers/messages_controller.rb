@@ -1,14 +1,40 @@
 class MessagesController < ApplicationController
+before_action :find_message, only: [:show, :edit, :update, :destroy]
 
   def index
+    @messages = Message.all.order("created_at DESC")
+  end
+
+  def show
   end
 
   def new
-    @message = Message.new
+    @messages = current_user.messages.build
   end
 
   def create
-    @message = Message.new(message_params)
+    @messages = current_user.messages.build(message_params)
+    if @messages.save
+      redirect_to root_path
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @messages.update(message_params)
+      redirect_to message_path
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @messages.destroy
+    redirect_to root_path
   end
 
   private
@@ -17,4 +43,7 @@ class MessagesController < ApplicationController
       params.require(:message).permit(:title, :description)
     end
 
+    def find_message
+      @messages = Message.find(params[:id])
+    end
 end
