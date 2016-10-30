@@ -1,0 +1,4 @@
+%h1 Edit comment
+= simple_form_for([@messages, @comments]) do |f|
+  = f.input :content, label: "Comment"
+  = f.button :submit
