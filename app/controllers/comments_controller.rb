@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :find_message
   before_action :find_comment, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def create
     @comments = @messages.comments.create(comment_params)
@@ -20,7 +21,7 @@ class CommentsController < ApplicationController
     @comments.destroy
     redirect_to message_path(@messages)
   end
-  
+
   def update
     if @comments.update(comment_params)
       redirect_to message_path(@messages)

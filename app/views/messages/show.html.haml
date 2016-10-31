@@ -1,12 +1,22 @@
-= @messages.title
+%h1= @messages.title
+%p Posted by
+= @messages.user
+%p
+= time_ago_in_words(@messages.created_at)
+%p
 = @messages.description
 
+%hr
 %h3 Comments:
 = render @messages.comments
 
+%hr
 %h3 Reply to Message:
 = render 'comments/form'
 
 = link_to "Back", root_path
-= link_to "Edit", edit_message_path(@messages)
-= link_to "Delete", message_path(@messages), method: :delete, data: { confirm: "Are you sure?" }
+
+= if user_signed_in?
+  = if @messages.user_id == current_user.id
+    = link_to "Edit", edit_message_path(@messages)
+    = link_to "Delete", message_path(@messages), method: :delete, data: { confirm: "Are you sure?" }
