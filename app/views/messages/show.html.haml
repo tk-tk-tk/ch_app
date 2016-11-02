@@ -1,22 +1,30 @@
-%h1= @messages.title
-%p Posted by
-= @messages.user
-%p
-= time_ago_in_words(@messages.created_at)
-%p
-= @messages.description
+%div{class: "col-md-8 col-md-offset-2"}
+  .message-show
+    %h1= @messages.title
+    %p{class: "message-posted-by"}
+      Posted by #{@messages.user.name}
+    %p
+      = "ID:#{@messages.user_id}"
+    = time_ago_in_words(@messages.created_at)
+    %p
+    = @messages.description
 
-%hr
-%h3 Comments:
-= render @messages.comments
+    %hr
+    %h3 Comments:
+    = render @messages.comments
 
-%hr
-%h3 Reply to Message:
-= render 'comments/form'
 
-= link_to "Back", root_path
+    %h3{class: "reply-to-msg"} Reply to Message:
+    = render 'comments/form'
 
-= if user_signed_in?
-  = if @messages.user_id == current_user.id
-    = link_to "Edit", edit_message_path(@messages)
-    = link_to "Delete", message_path(@messages), method: :delete, data: { confirm: "Are you sure?" }
+
+
+
+    %div{class: "links btn-group"}
+      = link_to "Back", root_path, class: "btn btn-defaut"
+
+    %div{class: "links btn-group"}
+      - if user_signed_in?
+        - if @messages.user_id == current_user.id
+          = link_to "Edit", edit_message_path(@messages), class: "btn btn-defaut"
+          = link_to "Delete", message_path(@messages), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-defaut"
