@@ -13,6 +13,8 @@ gem 'jquery-rails', '4.0.3'
 gem 'turbolinks', '2.3.0'
 gem 'jbuilder', '2.2.3'
 gem 'haml-rails'
+gem 'honoka-rails', '>= 3.3.6.3'
+
 gem 'sdoc', '0.4.0', group: :doc
 
 group :development, :test do

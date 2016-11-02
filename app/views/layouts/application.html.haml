@@ -23,7 +23,7 @@
 
       - if user_signed_in?
         %li{class: "active"}= link_to "New Message", new_message_path
-        %li{class: "active"}= link_to "Withdraw Your Account", 'users/edit'
+        %li{class: "active"}= link_to "Edit Account", 'users/edit'
 
-
+.container
   = yield
